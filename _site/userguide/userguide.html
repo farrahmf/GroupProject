@@ -107,7 +107,32 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">1. Introduction</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">2. Data</a></li>
+  <li><a href="#speed-time" id="toc-speed-time" class="nav-link" data-scroll-target="#speed-time">3. Speed &amp; Time</a>
+  <ul class="collapse">
+  <li><a href="#average-speed" id="toc-average-speed" class="nav-link" data-scroll-target="#average-speed">3.1 Average Speed</a></li>
+  <li><a href="#reaction-time" id="toc-reaction-time" class="nav-link" data-scroll-target="#reaction-time">3.2 Reaction Time</a></li>
+  </ul></li>
+  <li><a href="#split-times" id="toc-split-times" class="nav-link" data-scroll-target="#split-times">4. Split Times</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">4.1 Overview</a></li>
+  <li><a href="#distance" id="toc-distance" class="nav-link" data-scroll-target="#distance">4.2 Distance</a></li>
+  <li><a href="#pacing-default" id="toc-pacing-default" class="nav-link" data-scroll-target="#pacing-default">4.3 Pacing (Default)</a></li>
+  <li><a href="#pacing-clusters" id="toc-pacing-clusters" class="nav-link" data-scroll-target="#pacing-clusters">4.4 Pacing (Clusters)</a></li>
+  <li><a href="#performance" id="toc-performance" class="nav-link" data-scroll-target="#performance">4.5 Performance</a></li>
+  </ul></li>
+  <li><a href="#performance-over-time" id="toc-performance-over-time" class="nav-link" data-scroll-target="#performance-over-time">5. Performance Over Time</a>
+  <ul class="collapse">
+  <li><a href="#plot-outputs" id="toc-plot-outputs" class="nav-link" data-scroll-target="#plot-outputs">5.1 Plot Outputs</a></li>
+  </ul></li>
+  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction">6. Prediction</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -129,8 +154,191 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
+<p>The purpose of this application is to enable swimmers and coaches to incorporate a data-driven approach into their training program. Using analytical tools, the user gains insights that can help improve training and enhance competition performance.</p>
+<p><img src="swimming-wallpapers.png" class="img-fluid" width="1067"></p>
+<p>The application comprises six sections, as follows:</p>
+<ul>
+<li><p>About</p></li>
+<li><p>Data</p></li>
+<li><p>Speed/Time</p></li>
+<li><p>Split Times</p></li>
+<li><p>Performance over Rounds</p></li>
+<li><p>Prediction</p></li>
+</ul>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">2. Data</h2>
+<p>The “Data” section displays the primary dataset upon which the app and its analysis are based. Users can explore the dataset by utilizing wildcard searches and sorting expressions to refine and filter the data as desired.</p>
+<p><img src="datatable.png" class="img-fluid" width="800"></p>
+<p><br>
+Note that this app was built on a dataset comprising official results from swimming events at the Tokyo Summer Olympics 2020. For more details on how the data was obtained, see our <a href="https://swimanalytica.netlify.app/methodology/methodology.html">methodology</a>. The features of this app are not specific to the Tokyo Summer Olympics and are envisioned to work on similar datasets, i.e.&nbsp;other swimming competitions that follow a similar format.</p>
+</section>
+<section id="speed-time" class="level2">
+<h2 class="anchored" data-anchor-id="speed-time">3. Speed &amp; Time</h2>
+<p>The user may select Average Speed and Reaction Time from the dropdown list under “Speed/Time” tab.</p>
+<p><img src="SpeedTine1.png" width="800" height="92"></p>
+<section id="average-speed" class="level3">
+<h3 class="anchored" data-anchor-id="average-speed">3.1 Average Speed</h3>
+<p>There are sub-tabs under “Average Speed”: Distribution, Compare Speed and Correlation. The unit for average speed is miles per second.</p>
+<section id="distribution" class="level4">
+<h4 class="anchored" data-anchor-id="distribution">3.1.1 Distribution</h4>
+<p><br>
+<img src="SpeedTime2.png" class="img-fluid" width="800"></p>
+<p><br>
+There are 2 data visualisations under distribution. The graph on top is the histogram which shows the distribution of the average speed of individual swimmers. The user may hover the pointer over the graph to see the average speed and swimmer name.</p>
+<p>On the left, the user can select the parameters for the histogram graph:</p>
+<ol type="1">
+<li><p>Select type of styles, gender, distance and rounds. The user can select multiple options for each parameter</p></li>
+<li><p>Select the bin width</p></li>
+</ol>
+<p>By customizing bin width, the user may better visualize the pattern for different parameters.</p>
+<p>The Scatterstats Plot below shows the average speed of swimmers coming from different continents. The continent data comes from the “Country” attribute of each swimmer. Taking reference from the histogram, the user may choose the appropriate statistics test to compare the average speed of different continent. A statistical formula is shown in the chart which gives information about the correlation and significance.</p>
+<p>Similar to the Histogram, the user may select the parameters for the charts:</p>
+<ol type="1">
+<li><p>Select type of styles, gender, distance and rounds. The user may select multiple options for each parameter</p></li>
+<li><p>Select the statistical test for the comparison. Options include parametric, nonparametric, robust, and bayes</p></li>
+</ol>
+</section>
+<section id="compare-means" class="level4">
+<h4 class="anchored" data-anchor-id="compare-means">3.1.2 Compare Means</h4>
+<p><br>
+<img src="SpeedTime3.png" class="img-fluid" width="800"><br>
+</p>
+<p><br>
+There are 4 violin boxplot under “Compare Mean” tab. Each of the plots shows the distribution of average speed for Style, Gender, Distance and Round respectively.</p>
+<p>The user may select the parameters to customize charts:</p>
+<ol type="1">
+<li><p>Select type of styles, gender, distance and rounds. User can select multiple options for each parameter</p></li>
+<li><p>Select the statistical test for the comparison. Options include parametric, nonparametric, robust, and bayes</p></li>
+</ol>
+<p>By choosing the right parameters, the user may test the null hypothesis that average speed distribution is the same for each of the parameters across the same events/gender/style or rounds. A statistical formula is shown in the chart which gives information about the correlation and significance.</p>
+</section>
+<section id="correlation" class="level4">
+<h4 class="anchored" data-anchor-id="correlation">3.1.3 Correlation</h4>
+<p><br>
+<img src="SpeedTime4.png" class="img-fluid"> A scatterplot is used to shows the correlation between Average Speeds and Reaction Time. The Y-axis represents Reaction Time and X axis represents Average Speed. A statistical formula is shown in the chart which gives information about the correlation and significance.</p>
+<p>The user may select the parameters to customize charts:</p>
+<ol type="1">
+<li><p>Select type of styles, gender, distance and rounds. The user may select multiple options for each parameter</p></li>
+<li><p>Select the statistical test for the comparison. Options include parametric, nonparametric, robust, and bayes. The user may refer to the histogram under “Distribution” tab to determine the appropriate statistic test.</p></li>
+</ol>
+<p><br>
+</p>
+</section>
+</section>
+<section id="reaction-time" class="level3">
+<h3 class="anchored" data-anchor-id="reaction-time">3.2 Reaction Time</h3>
+<p><br>
+Reaction Time has the similar layout for all the graphs as <a href="#average-speed">3.1 Average Speed</a>. There are sub-tabs including Distribution, Compare Speed and Correlation. The unit for Reaction Time is number of seconds.</p>
+<p><br>
+</p>
+</section>
+</section>
+<section id="split-times" class="level2">
+<h2 class="anchored" data-anchor-id="split-times">4. Split Times</h2>
+<p><br>
+In this section, the user can explore and confirm hypotheses about split times and pacing strategies. Note that only race distances of 200m and over are included in this section, since these are distances that are more relevant in the examination of split times and pacing.<br>
+<br>
+<img src="S_img1.jpg" class="img-fluid" width="800"><br>
+<br>
+The user may provide the following input in the sidebar: the event, the range to be considered as “even” pacing, the distance method for clustering, the method for clustering, and the number of clusters. The default values are shown above.<br>
+</p>
+<section id="overview" class="level3">
+<h3 class="anchored" data-anchor-id="overview">4.1 Overview</h3>
+<p><br>
+<img src="S_img2.jpg" class="img-fluid" width="800"></p>
+<p><br>
+In the “Overview” sub-section, the user will see two adjacent charts: to the left is a multiple line chart showing the split speeds for each swimmer for the chosen event, and to the right is a column chart showing the average speeds for each swimmer. In the right-hand chart, swimmers are arranged in descending order of speed from top to bottom. The user can highlight a swimmer in either chart, which will highlight the same swimmer in the corresponding chart. When hovering over a swimmer in the line chart, the user will also be able to see the swimmer’s ID, place (final position in the race), and final race time.</p>
+<p>Note that a swimmer may appear more than once if the swimmer participated in more than one round (e.g.&nbsp;Heat and Semi-Final).</p>
+</section>
+<section id="distance" class="level3">
+<h3 class="anchored" data-anchor-id="distance">4.2 Distance</h3>
+<p><br>
+<img src="S_img3.jpg" class="img-fluid"></p>
+<p><br>
+In the “Distance” sub-section, the user will see two adjacent charts. To the left, we consider all splits; to the right, we exclude the first and last split. Each chart is a scatterplot with regression line showing the linear relationship between the distance which the swimmer is at during a given split, and the speed at that split. Below each chart are the results of the Pearson’s correlation test, from which p-value and confidence interval, and correlation coefficient, the user may determine the significance and strength of the linear relationship.</p>
+</section>
+<section id="pacing-default" class="level3">
+<h3 class="anchored" data-anchor-id="pacing-default">4.3 Pacing (Default)</h3>
+<p><br>
+<img src="S_img4.jpg" class="img-fluid" width="800"></p>
+<p>In the “Pacing (Default)” sub-section, the user can explore how swimmer pace changed over the course of the race. Here, there are three default pacing categories: Even (speed in second half of race is within the selected range), Positive Split (slower than “Even” in second half of race), and Negative Split (faster than “Even” in second half of race).</p>
+<p>The user may take reference from the frequency table when deciding on the range for “Even”. The numbers on the slider refer to the speed in the second half of the race, as a percentage of the speed during the first half of the race.</p>
+<p>During the first split, a swimmer’s speed is additionally determined by reaction time and dive. During the last split, a swimmer’s speed is also affected by not having to do a “turn” at the end of the lap. Since swimmer speed during the first and last splits of a race tend to be deviate greatly from their speeds during the middle of the race, these are excluded from this analysis.</p>
+<p><br>
+<img src="S_img5.jpg" class="img-fluid" width="800"></p>
+<p>There are two adjacent charts below the frequency table. These are similar to the charts in <a href="#overview">4.1 Overview</a>, except that hovering over either highlights the whole of the desired pacing category.</p>
+</section>
+<section id="pacing-clusters" class="level3">
+<h3 class="anchored" data-anchor-id="pacing-clusters">4.4 Pacing (Clusters)</h3>
+<p><br>
+<img src="S_img6.jpg" class="img-fluid" width="800"><br>
+In the “Pacing (Clusters)” sub-section, the user may explore the presence of alternative pacing categories to the default. The variables being passed into the clustering function are the changes in speed between adjacent splits. Three arguments are used in the hierarchical clustering process: the distance method, the hierarchical clustering method, and the number of clusters.</p>
+<ul>
+<li><p>The user may select from five of the six available distance calculation methods offered by R’s <strong>dist()</strong> function. The “binary” method of distance calculation is excluded as it is inappropriate in this context. The default method is “Euclidean”, which is also the default method of the <strong>dist()</strong> function.</p></li>
+<li><p>The user may also select one of four more common hierarchical clustering methods offered by R’s <strong>hclust()</strong>. The default is “complete”, which is also the default method of the <strong>hclust()</strong> function.</p></li>
+<li><p>Finally the user may choose the number of clusters. The default is 4, which is one more than the three default pacing categories.</p></li>
+</ul>
+<p><br>
+<img src="S_img7.jpg" class="img-fluid" width="800"><br>
+The “Pacing (Clusters)” sub-section has two tab panels. The first, shown above, displays the dendrogram showing the clusters per user’s choices.</p>
+<p>The second, shown below, displays the split speeds line charts and average speed column charts. By hovering the pointer over a line or column of interest, all swimmers in the same pacing cluster will be highlighted.</p>
+<p><br>
+<img src="S_img8.jpg" class="img-fluid" width="800"><br>
+</p>
+</section>
+<section id="performance" class="level3">
+<h3 class="anchored" data-anchor-id="performance">4.5 Performance</h3>
+<p><br>
+<img src="S_img9.jpg" class="img-fluid" width="800"></p>
+<p><br>
+In the last sub-section, the user is able to compare the median average speeds (in metres per second) within each approach to categorising pacing (i.e.&nbsp;default or clusters), using one-way analysis of variance (ANOVA). Clusters with fewer than two data points are automatically dropped. In this regard, the null hypothesis is that there is no difference in median average speed across pacing categories, and the alternative is that there is. By comparing both charts, the user may also be better informed whether to apply the default pacing categories in the user’s training programme, or to consider alternative pacing categories (i.e.&nbsp;clusters).</p>
+<p>In most cases, the number of data points in each pacing category or cluster would be less than 30. This is due to the size of the overall dataset. Hence the ANOVA test performed is a non-parametric one, and the centrality parameter applied is the median. A future iteration of the app may allow the user to test for normality in data distribution and opt for a parametric approach instead.<br>
+</p>
+</section>
+</section>
+<section id="performance-over-time" class="level2">
+<h2 class="anchored" data-anchor-id="performance-over-time">5. Performance Over Time</h2>
+<p><br>
+In the “Performance Over Time” section, the user can select the appropriate filters to be applied to the Cumulative Distribution Function plot and Gradient Interval plot respectively.</p>
+<p><img src="POT1.png" class="img-fluid"><br>
+</p>
+<section id="plot-outputs" class="level3">
+<h3 class="anchored" data-anchor-id="plot-outputs">5.1 Plot Outputs</h3>
+<p><br>
+To the right of the side bar, the user will find the Cumulative Distribution Function plot and Gradient Interval plot respectively. Various interactive elements have been incorporated into the CDF plot to enhance analytic capabilities:</p>
+<ul>
+<li>Hover data</li>
+</ul>
+<p><br>
+<img src="POT2.png" class="img-fluid" width="800"></p>
+<p><br>
+</p>
+<ul>
+<li>Selection Data</li>
+</ul>
+<p><img src="POT3.png" class="img-fluid" width="800"></p>
+</section>
+</section>
+<section id="prediction" class="level2">
+<h2 class="anchored" data-anchor-id="prediction">6. Prediction</h2>
+<p><br>
+In the "Prediction" section, the user has the ability to build an appropriate regression model by selecting the appropriate filters to be used.</p>
+<p><br>
+<img src="Pred1.png" class="img-fluid" width="800"><br>
+<br>
+By default, all independent variables are included in the model. However, after performing multi-collinearity model diagnostic checks, the user can identify highly correlated attributes that can negatively impact the model’s performance. The user can then decide which attributes to retain or drop in order to recalibrate the model.</p>
+<p><br>
+<img src="Pred2.png" class="img-fluid" width="800"><br>
+<br>
+The regression model’s output and statistics are generated dynamically, allowing users to visualize the model’s results as it is being constructed in real-time.</p>
+<p><br>
+<img src="Pred3.png" class="img-fluid" width="800"></p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
