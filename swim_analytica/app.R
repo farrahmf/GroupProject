@@ -59,6 +59,19 @@ averagespeedPanel <- tabPanel(
                   multiple = TRUE,
                   selected = unique(ST_swimdata$Round),
                   ),
+      sliderInput("ST_bins",
+                  label=h5("Bins (for histogram only):"),
+                  min = 10,
+                  max = 60,
+                  value = 20,
+                  step = 5,
+                  ),
+      selectInput("ST_statstype",
+                  label=h5("Statistical measure (for violin plot & scatterplot only):"),
+                  choices=list("parametric", "nonparametric", "robust", "bayes"),
+                  multiple = FALSE,
+                  selected = "nonparametric",
+                  ),
     ),
     mainPanel(
       tabsetPanel(
@@ -157,6 +170,19 @@ reactiontimePanel <- tabPanel(
                   multiple = TRUE,
                   selected = unique(ST_swimdata$Round),
       ),
+      sliderInput("RT_bins",
+                  label=h5("Bins (for histogram only):"),
+                  min = 10,
+                  max = 60,
+                  value = 20,
+                  step = 5,
+      ),
+      selectInput("RT_statstype",
+                  label=h5("Statistical measure (for violin plot & scatterplot only):"),
+                  choices=list("parametric", "nonparametric", "robust", "bayes"),
+                  multiple = FALSE,
+                  selected = "nonparametric",
+      ),
     ),
     mainPanel(
       tabsetPanel(
@@ -235,13 +261,15 @@ ui <- fluidPage(
   navbarPage(HTML("<b>Swim Analytica</b>"),
              ### START Cheryl input 20/3###
              tabPanel("About",icon = icon("person-swimming"),
-                      fluidPage(img(src='swimming-wallpapers.jpg', 
-                                    align = "center"))
+                      fluidPage(img(src='swimming-wallpapers.png', 
+                                    align = "center", width="100%"))
                       ),
              tabPanel("Data",icon = icon("table"),
                       tags$div(
                         tags$h4("DATASET"),
-                        "This tab showcases the dataset in which this shiny app and its analysis is built upon."),
+                        "This tab showcases the dataset in which this shiny app and its analysis is built upon. To develop this app, we have used results from swimming 
+                        events that took place during the Tokyo Summer Olympics 2020. The app's features are not specific to the Olympics, and may potentially be used 
+                        for other, similar swimming datasets."),
                       tags$br(),tags$br(),
                       fluidRow(column(DT::dataTableOutput("rawtable"), width = 12))
                       ),
@@ -318,11 +346,11 @@ ui <- fluidPage(
                             tabPanel("Pacing (Default)",
                                      titlePanel("Identifying positive splits, negative splits and even pacing"),
                                      fluidRow(
-                                              column(5,
-                                                     girafeOutput("S_pacing1", height=300))),
+                                       column(5,
+                                              girafeOutput("S_pacing1", height=300))),
                                      fluidRow(
-                                              girafeOutput("S_pacing2", height=1500))
-                                     ),
+                                       girafeOutput("S_pacing2", height=1500))
+                            ),
                             tabPanel("Pacing (Clusters)",
                                      tabsetPanel(
                                        tabPanel("Dendrogram",
@@ -332,7 +360,7 @@ ui <- fluidPage(
                                        tabPanel("Charts",
                                                 girafeOutput("S_pacing4", height=1000))
                                      )
-                                     ),
+                            ),
                             tabPanel("Performance",
                                      titlePanel("Comparing median average speed across pacing categories, clusters"),
                                      plotOutput("S_perform1"),
@@ -370,15 +398,16 @@ ui <- fluidPage(
              ### START - Cheryl 22/3 ###
              tabPanel("Prediction", icon = icon("chart-line"),
                       sidebarPanel(
+                        tags$p(HTML("<b>Predicted response variable used for the regression model is the <u>Final Swim Time.</u></b>")),
                         selectInput("LM_var",
-                                    label=h5("Selection of Variables for Regression Model:"),
-                                    choices=c('OlypQualTime', 'OlypRecord', 'Final', 'Heat', 
+                                    label=h5("Selection of Independent Variables for Regression Model:"),
+                                    choices=c('OlypQualTime', 'OlypRecord', 'AvgTime', 'Heat', 
                                               'Semi', 'SDTime', 'RelTime_OQT', 'RelTime_ORT', 'Podium', 'RelTime_OQT_LR', 'RelTime_ORT_LR'),
                                     multiple = TRUE,
-                                    selected = c('OlypQualTime', 'OlypRecord', 'Final', 'Heat', 
+                                    selected = c('OlypQualTime', 'OlypRecord', 'AvgTime', 'Heat', 
                                                  'Semi', 'SDTime', 'RelTime_OQT', 'RelTime_ORT', 'Podium', 'RelTime_OQT_LR', 'RelTime_ORT_LR')
                         )),
-                        mainPanel(titlePanel("Prediction of Average Swim Speed"),
+                        mainPanel(titlePanel("Multivariate Regression for Swim Time"),
                                   fluidRow(
                                     column(12,
                                            h3("Model Diagnostic: Check for Multicollinearity"),
@@ -387,7 +416,7 @@ ui <- fluidPage(
                                   ),
                                   fluidRow(
                                     column(6,
-                                           h3("Linear Regression Analysis"),
+                                           h3("Regression Analysis"),
                                            verbatimTextOutput("LM_output")),
                                     column(6,
                                            h3("Regression Parameters Plot"),
@@ -406,6 +435,7 @@ ui <- fluidPage(
 
 ######## SERVER ########
 
+# Define server logic required to draw a histogram
 server <- function(input, output) {
   # SECTION: LANDING PAGE
   image_path <- reactive({
@@ -461,7 +491,7 @@ server <- function(input, output) {
     ))
     
     p1 <- ggplot(data=ST_swimdata_subset, aes(x=Average_speed)) + 
-      geom_histogram_interactive(bins=10, aes(tooltip=ST_swimdata_subset$tooltip))+
+      geom_histogram_interactive(bins=input$ST_bins, aes(tooltip=ST_swimdata_subset$tooltip))+
       labs(x = "Average Speed (m/s)")+
       theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
             text=element_text(size=12))
@@ -504,7 +534,7 @@ server <- function(input, output) {
       data       = ST_swimdata_subset,
       y          = Continent,
       x          = Average_speed,
-      type       = "robust",
+      type       = input$ST_statstype,
       xlab       = "Average Speed (m/s)",
       ylab.      = "Continent"
     )+
@@ -537,7 +567,7 @@ server <- function(input, output) {
       data = ST_swimdata_subset,
       x = Style,
       y = Average_speed,
-      type = "nonparametric",
+      type = input$ST_statstype,
       pairwise.comparisons = FALSE,
       centrality.label.args = list(size  = 4)
     )+
@@ -567,7 +597,7 @@ server <- function(input, output) {
       data = ST_swimdata_subset,
       x = Gender,
       y = Average_speed,
-      type = "nonparametric",
+      type = input$ST_statstype,
       pairwise.comparisons = FALSE,
       centrality.label.args = list(size  = 4)
     )+
@@ -597,7 +627,7 @@ server <- function(input, output) {
       data = ST_swimdata_subset,
       x = Distance,
       y = Average_speed,
-      type = "nonparametric",
+      type = input$ST_statstype,
       pairwise.comparisons = FALSE,
       centrality.label.args = list(size  = 4)
     )+
@@ -627,7 +657,7 @@ server <- function(input, output) {
       data = ST_swimdata_subset,
       x = Round,
       y = Average_speed,
-      type = "nonparametric",
+      type = input$ST_statstype,
       pairwise.comparisons = FALSE,
       centrality.label.args = list(size  = 4)
     )+
@@ -659,7 +689,7 @@ server <- function(input, output) {
       data = ST_swimdata_subset,
       x = Average_speed,
       y = Reaction_Time,
-      type = "nonparametric",
+      type = input$ST_statstype,
       marginal = FALSE,
     )+
       labs(x = "Average Speed (m/s)", y = "Reaction Time (s)")+
@@ -695,7 +725,7 @@ server <- function(input, output) {
     ))
     
     p1 <- ggplot(data=RT_swimdata_subset, aes(x=Reaction_Time)) + 
-      geom_histogram_interactive(bins=10, aes(tooltip=RT_swimdata_subset$tooltip))+
+      geom_histogram_interactive(bins=input$RT_bins, aes(tooltip=RT_swimdata_subset$tooltip))+
       labs(x = "Reaction Time (s)")+
       theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
             text=element_text(size=12))
@@ -738,7 +768,7 @@ server <- function(input, output) {
       data       = RT_swimdata_subset,
       y          = Continent,
       x          = Reaction_Time,
-      type       = "robust",
+      type       = Input$RT_statstype,
       xlab       = "Reaction Time (s)",
       ylab.      = "Continent"
     )+
@@ -770,7 +800,7 @@ server <- function(input, output) {
       data = RT_swimdata_subset,
       x = Style,
       y = Reaction_Time,
-      type = "nonparametric",
+      type = input$RT_statstype,
       pairwise.comparisons = FALSE,
       centrality.label.args = list(size  = 4)
     )+
@@ -800,7 +830,7 @@ server <- function(input, output) {
       data = RT_swimdata_subset,
       x = Gender,
       y = Average_speed,
-      type = "nonparametric",
+      type = input$RT_statstype,
       pairwise.comparisons = FALSE,
       centrality.label.args = list(size  = 4)
     )+
@@ -829,7 +859,7 @@ server <- function(input, output) {
       data = RT_swimdata_subset,
       x = Distance,
       y = Reaction_Time,
-      type = "nonparametric",
+      type = input$RT_statstype,
       pairwise.comparisons = FALSE,
       centrality.label.args = list(size  = 4)
     )+
@@ -859,7 +889,7 @@ server <- function(input, output) {
       data = RT_swimdata_subset,
       x = Round,
       y = Average_speed,
-      type = "nonparametric",
+      type = input$RT_statstype,
       pairwise.comparisons = FALSE,
       centrality.label.args = list(size  = 4)
     )+
@@ -891,7 +921,7 @@ server <- function(input, output) {
       data = RT_swimdata_subset,
       x = Reaction_Time,
       y = Average_speed,
-      type = "nonparametric",
+      type = input$RT_statstype,
       marginal = FALSE,
     )+
       labs(x = "Reaction Time (s)", y = "Average Speed (m/s)")+
@@ -1388,7 +1418,7 @@ server <- function(input, output) {
       }
     
       inputs <- paste(c(input$LM_var), collapse = " + ")
-      forms <- as.formula(paste0("AvgTime", "~",  inputs))
+      forms <- as.formula(paste0("Final", "~",  inputs))
       model <- lm(forms, data = LM_swimdata_subset)
       
       check_c <- check_collinearity(model)
@@ -1404,7 +1434,7 @@ server <- function(input, output) {
     }
     
     inputs <- paste(c(input$LM_var), collapse = " + ")
-    forms <- as.formula(paste0("AvgTime", "~",  inputs))
+    forms <- as.formula(paste0("Final", "~",  inputs))
     model <- lm(forms, data = LM_swimdata_subset)
     
     output <- summary(model)
@@ -1420,17 +1450,14 @@ server <- function(input, output) {
     }
     
     inputs <- paste(c(input$LM_var), collapse = " + ")
-    forms <- as.formula(paste0("AvgTime", "~",  inputs))
+    forms <- as.formula(paste0("Final", "~",  inputs))
     model <- lm(forms, data = LM_swimdata_subset)
     
     ggcoefstats(model, 
                 output = "plot")
   })
-    
 
-  
-
-}
+} 
 
 ######## END OF SERVER ########
 

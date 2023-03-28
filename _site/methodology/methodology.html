@@ -120,7 +120,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#speed-reaction-time" id="toc-speed-reaction-time" class="nav-link" data-scroll-target="#speed-reaction-time">2. Speed/ Reaction Time</a></li>
   <li><a href="#split-times" id="toc-split-times" class="nav-link" data-scroll-target="#split-times">3. Split Times</a></li>
   <li><a href="#performance-over-rounds" id="toc-performance-over-rounds" class="nav-link" data-scroll-target="#performance-over-rounds">4. Performance Over Rounds</a></li>
+  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction">5. Prediction</a></li>
   </ul></li>
+  <li><a href="#r-packages-used" id="toc-r-packages-used" class="nav-link" data-scroll-target="#r-packages-used">R Packages Used</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -259,23 +261,66 @@ There are five sub-sections in this section:<br>
 <ul>
 <li>One-way ANOVA tests are conducted for differences in median performance (average speed, final time) for different pacing categories. The results are visualised as violin boxplots using <strong>ggstatsplots</strong>. (The non-parametric method is default chosen for the ANOVA tests because of small sample sizes.)</li>
 </ul>
-<p><br>
-</p>
 </section>
 </section>
 <section id="performance-over-rounds" class="level3">
 <h3 class="anchored" data-anchor-id="performance-over-rounds">4. Performance Over Rounds</h3>
-<p>The app user will be given the opportunity to explore and confirm the following:</p>
+<p>To enhance the dataset with more information regarding the fractional improvement of swimmers throughout the rounds, feature engineering techniques have been utilized to create new variables:&nbsp;&nbsp;</p>
 <ul>
-<li><p>Using line charts to reveal changes in performance over rounds, for swimmers who have made it to the finals. We can plot the performance base on rounds or days ie. Days since last race&nbsp;</p></li>
-<li><p>Plotting Cumulative Distribution function of the difference in timings between semi-finals and finals, heats and finals, semis and heats.&nbsp;</p></li>
-<li><p>Test the hypothesis that swimmer performance during semi-finals is not the same as performance during finals, by gender. This will be tested using the two sample t-test, with results based on p-value and confidence intervals. This may help the coach understand the “competition effect” on the performance of swimmers - What is the fractional improvement of individual swimmers from the semifinals to the finals? Does the observed fractional improvement commensurate with there being no difference in performance in the semifinals and finals?&nbsp;</p></li>
-<li><p>Determine if swimmer performance is consistent over rounds, using the Mann-Kendall test, and testing if consistency if associated with podium performance (podium peformance refers to whether or not the swimmer is placed in the top three positions at the end of the race).</p></li>
-<li><p>Multivariate regression to determine explanatory power of a swimmer’s performance during heats and semi-finals, for swimmer’s performance during the finals.</p></li>
+<li><p>Fractional Improvement (Semis to Finals)= (Semifinals Time – Finals Time) / Semifinals Time&nbsp;</p></li>
+<li><p>Fractional Improvement (Heats to Finals) = (Heats Time – Finals Time) / Heats Time&nbsp;</p></li>
 </ul>
-
-
+<p>The app user will be given the opportunity to understand how athletes’ performance changes from the earlier rounds to the finals:&nbsp;</p>
+<ul>
+<li><p>Fractional changes in swim performance improvement between heats, semis, and finals can be uncovered by utilizing Cumulative Distribution Function (CDF) plots. These results are presented through <strong>plotly</strong>, providing users with the ability to zoom in on areas of interest and hover over tooltips for additional information, thus enhancing the level of interactivity.&nbsp;</p></li>
+<li><p>The utilization of the Gradient Interval Plot feature from <strong>ggdist</strong> enables straightforward visualization of the fractional time improvements’ distribution at both the 66% and 95% confidence interval levels.&nbsp;</p></li>
+</ul>
 </section>
+<section id="prediction" class="level3">
+<h3 class="anchored" data-anchor-id="prediction">5. Prediction</h3>
+<p>The dataset has been enriched by the introduction of new data, coupled with the application of feature engineering techniques to create variables that offer further insights into swimmers’ performance with respect to Olympic success.&nbsp;</p>
+<ul>
+<li><p>SDTime – This variable represents the standard deviation of a given swimmer’s time logged over rounds.</p></li>
+<li><p>AvgTime - This variable represents the mean of a given swimmer’s time logged over rounds.&nbsp;</p></li>
+<li><p>Podium – This is a binary variable which determines if a swimmer has has podiumed in his/her event.&nbsp;&nbsp;</p></li>
+<li><p>OlypRecord – This variable represents the <a href="https://en.wikipedia.org/wiki/List_of_Olympic_records_in_swimming">Olympic Record</a> time for a given event.&nbsp;</p></li>
+<li><p>OlypQualTime – This variable represents the <a href="https://resources.fina.org/fina/document/2022/07/15/e0f75e3c-88d5-4356-9ec6-852c8ce237b7/Paris-2024-SW-Qualification-System_ENG_H.pdf">Olympic Qualifying</a> time for a given event.&nbsp;</p></li>
+<li><p>RelTime_OQT = (AvgTime -&nbsp; OlypQualTime)/ AvgTime&nbsp;</p></li>
+<li><p>RelTime_ORT = (AvgTime - OlypRecord)/ AvgTime&nbsp;</p></li>
+<li><p>RelTime_OQT_LR – This binary variable represents is a swimmer’s AvgTime is faster than the Olympic Qualifying time.&nbsp;&nbsp;</p></li>
+<li><p>RelTime_ORT_LR - This binary variable represents is a swimmer’s AvgTime is faster than the Olympic Record time.&nbsp;</p></li>
+</ul>
+<p>In the application, users can build a multivariate regression model to analyse how the various explanatory variables influence a swimmer’s Final swim time, thereby enhancing their comprehension of the performance determinants. To accomplish this, the <strong>performance</strong> package is utilized to visualize variable multicollinearity, where users can select appropriate variables for the regression model, and the <strong>ggstatsplot</strong> package is employed to visualize the regression model’s parameters.&nbsp;</p>
+</section>
+</section>
+<section id="r-packages-used" class="level2">
+<h2 class="anchored" data-anchor-id="r-packages-used">R Packages Used</h2>
+<p>Here is the complete list of R packages that were used to develop the app (shown in alphabetical order):</p>
+<ul>
+<li><p><strong>dendextend</strong></p></li>
+<li><p><strong>dplyr</strong></p></li>
+<li><p><strong>DT</strong></p></li>
+<li><p><strong>gapminder</strong></p></li>
+<li><p><strong>ggdist</strong></p></li>
+<li><p><strong>ggiraph</strong></p></li>
+<li><p><strong>ggplot2</strong></p></li>
+<li><p><strong>ggstatsplot</strong></p></li>
+<li><p><strong>htmltools</strong></p></li>
+<li><p><strong>lubridate</strong></p></li>
+<li><p><strong>patchwork</strong></p></li>
+<li><p><strong>performance</strong></p></li>
+<li><p><strong>plotly</strong></p></li>
+<li><p><strong>PMCMRplus</strong></p></li>
+<li><p><strong>RColorBrewer</strong></p></li>
+<li><p><strong>rstantools</strong></p></li>
+<li><p><strong>scales</strong></p></li>
+<li><p><strong>shiny</strong></p></li>
+<li><p><strong>shinythemes</strong></p></li>
+<li><p><strong>tidyverse</strong></p></li>
+</ul>
+<p>&nbsp;</p>
+
+
 </section>
 </section>
 
