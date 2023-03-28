@@ -1,1 +1,1 @@
-[![](logo_SA.png){fig-align="right" width="738"}](https://mllaw319.shinyapps.io/swim_analytica/)
+[![\[Click logo for the app\]](logo_SA.png){fig-align="right" width="738"}](https://mllaw319.shinyapps.io/swim_analytica/)
