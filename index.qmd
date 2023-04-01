@@ -1,1 +1,3 @@
-[![\[Click logo for the app\]](logo_SA.png){fig-align="right" width="738"}](https://mllaw319.shinyapps.io/swim_analytica/)
+[![](logo_SA.png){fig-align="center" width="300"}](https://mllaw319.shinyapps.io/swim_analytica/)
+
+![](blurb.png){fig-align="center" width="600"}

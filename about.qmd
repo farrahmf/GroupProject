@@ -4,9 +4,13 @@ title: "About"
 
 We have created this website and its Shiny app as a group project submission for the Singapore Management University's ISSS608 Visual Analytics and Applications course (January 2023 term). We are students of the university's Master of IT in Business, at its School of Computing and Information Systems.
 
+We wish to express our deepest appreciation to *Prof Kam Tin Seong* for his guidance during the development of the app.
+
 Thank you for visiting.
 
 \
+
+[***Group 11***]{.underline}***:***
 
 ***Cheryl Jeanne Chiew***
 

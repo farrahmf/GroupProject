@@ -11,7 +11,9 @@ website:
     - text: "User Guide"
       href: "userguide/userguide.html"
     - text: "Poster"
-      href: "poster/poster.html"
+      href: "poster/poster.pdf"
+    - text: "The App"
+      href: "https://mllaw319.shinyapps.io/swim_analytica/"
     right:
       - about.qmd
 

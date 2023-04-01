@@ -4,7 +4,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "We have created this website and its Shiny app as a group project submission for the Singapore Management University’s ISSS608 Visual Analytics and Applications course (January 2023 term). We are students of the university’s Master of IT in Business, at its School of Computing and Information Systems.\nThank you for visiting.\n\n\nCheryl Jeanne Chiew\nLaw Man Long\nFarrah Mohd Fadil"
+    "text": "We have created this website and its Shiny app as a group project submission for the Singapore Management University’s ISSS608 Visual Analytics and Applications course (January 2023 term). We are students of the university’s Master of IT in Business, at its School of Computing and Information Systems.\nWe wish to express our deepest appreciation to Prof Kam Tin Seong for his guidance during the development of the app.\nThank you for visiting.\n\n\nGroup 11:\nCheryl Jeanne Chiew\nLaw Man Long\nFarrah Mohd Fadil"
   },
   {
     "objectID": "methodology/methodology.html",
@@ -53,13 +53,6 @@
     "href": "userguide/userguide.html#prediction",
     "title": "User Guide",
     "section": "6. Prediction",
-    "text": "6. Prediction\n\nIn the \"Prediction\" section, the user has the ability to build an appropriate regression model by selecting the appropriate filters to be used.\n\n\n\nBy default, all independent variables are included in the model. However, after performing multi-collinearity model diagnostic checks, the user can identify highly correlated attributes that can negatively impact the model’s performance. The user can then decide which attributes to retain or drop in order to recalibrate the model.\n\n\n\nThe regression model’s output and statistics are generated dynamically, allowing users to visualize the model’s results as it is being constructed in real-time."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "",
-    "section": "",
-    "text": "[Click logo for the app]"
+    "text": "6. Prediction\n\nIn the “Prediction” section, the user has the ability to build an appropriate regression model by selecting the appropriate filters to be used.\n\n\n\nBy default, all independent variables are included in the model. However, after performing multi-collinearity model diagnostic checks, the user can identify highly correlated attributes that can negatively impact the model’s performance. The user can then decide which attributes to retain or drop in order to recalibrate the model.\n\n\n\nThe regression model’s output and statistics are generated dynamically, allowing users to visualize the model’s results as it is being constructed in real-time."
   }
 ]

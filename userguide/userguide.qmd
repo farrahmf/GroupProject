@@ -198,30 +198,20 @@ To the right of the side bar, the user will find the Cumulative Distribution Fun
 
 ![](POT3.png){width="800"}
 
-##  6. Prediction
+## 6. Prediction
 
 \
-In the \"Prediction\" section, the user has the ability to build an appropriate regression model by selecting the appropriate filters to be used.
+In the "Prediction" section, the user has the ability to build an appropriate regression model by selecting the appropriate filters to be used.
 
 \
-![](Pred1.png){width="800"}
-\
+![](Pred1.png){width="800"}\
 \
 By default, all independent variables are included in the model. However, after performing multi-collinearity model diagnostic checks, the user can identify highly correlated attributes that can negatively impact the model's performance. The user can then decide which attributes to retain or drop in order to recalibrate the model.
 
 \
-![](Pred2.png){width="800"}
-\
+![](Pred2.png){width="800"}\
 \
 The regression model's output and statistics are generated dynamically, allowing users to visualize the model's results as it is being constructed in real-time.
 
 \
 ![](Pred3.png){width="800"}
-
-
-
-
-
-
-
-
