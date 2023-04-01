@@ -15,7 +15,8 @@ pacman::p_load(shiny,
                PMCMRplus,
                gapminder,
                ggdist, 
-               DT, 
+               DT,
+               see,
                performance,
                htmltools)
 
@@ -768,7 +769,7 @@ server <- function(input, output) {
       data       = RT_swimdata_subset,
       y          = Continent,
       x          = Reaction_Time,
-      type       = Input$RT_statstype,
+      type       = input$RT_statstype,
       xlab       = "Reaction Time (s)",
       ylab.      = "Continent"
     )+
